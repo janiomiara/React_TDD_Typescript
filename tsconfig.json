@@ -14,12 +14,11 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    //    "isolatedModules": true,
     "noEmit": true
-//    "sourceMap": true,
-//    "alwaysStrict": true,
-//    "declaration": false
-
+    //    "sourceMap": true,
+    //    "alwaysStrict": true,
+    //    "declaration": false
   },
   "include": ["src"]
 }
