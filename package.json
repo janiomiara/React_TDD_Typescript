@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/janiomiara/React_TDD_Typescript/issues"
   },
-  "homepage": "https://github.com/janiomiara/React_TDD_Typescript#readme"
+  "homepage": "https://github.com/janiomiara/React_TDD_Typescript#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^2.4.4"
+  }
 }
