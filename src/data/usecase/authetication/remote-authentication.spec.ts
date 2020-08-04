@@ -1,9 +1,10 @@
 import { RemoteAuthentication } from './remote-authentication'
 import { HttpPostClientSpy } from '../../test/mock-http-client'
 import { mockAuthentication } from '../../../domain/test/mock-authentication'
-import faker from 'faker'
 import { InvalidCredentialsError } from '../../../domain/erros/InvalidCredentialsError'
 import { HttpStatusCode } from '../../protocols/http/http-reposnse'
+import { UnexpectedError } from '../../../domain/erros/unexpected-error'
+import faker from 'faker'
 
 type SutTypes = {
   sut: RemoteAuthentication
@@ -38,12 +39,45 @@ describe('RemoteAuthentication', () => {
 })
 
 describe('RemoteAuthentication', () => {
-  test('Should trow IvalidCrentialError if HttpPostClient retunrs 401', async () => {
+  test('Should trow IvalidCredemtialError if HttpPostClient retunrs 401', async () => {
     const { sut, httpPostClientSpy } = makeSut()
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.unathorized
     }
     const promise = sut.auth(mockAuthentication())
     await expect(promise).rejects.toThrow(new InvalidCredentialsError())
+  })
+})
+
+describe('RemoteAuthentication', () => {
+  test('Should trow IvalidCredemtialError if HttpPostClient retunrs 400', async () => {
+    const { sut, httpPostClientSpy } = makeSut()
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest
+    }
+    const promise = sut.auth(mockAuthentication())
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+})
+
+describe('RemoteAuthentication', () => {
+  test('Should trow IvalidCredemtialError if HttpPostClient retunrs 500', async () => {
+    const { sut, httpPostClientSpy } = makeSut()
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    }
+    const promise = sut.auth(mockAuthentication())
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+})
+
+describe('RemoteAuthentication', () => {
+  test('Should trow IvalidCredemtialError if HttpPostClient retunrs 404', async () => {
+    const { sut, httpPostClientSpy } = makeSut()
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.notFound
+    }
+    const promise = sut.auth(mockAuthentication())
+    await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 })
